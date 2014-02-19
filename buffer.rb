@@ -25,4 +25,4 @@ end
 profile_id = "52b3069411243a4d5a0000ba"
 token = "1/ca8f892f4f20142ffd0ac7400ab79366"
 # puts BufferApp.new(token).getProfile
-puts BufferApp.new(token, profile_id ).create("in buffer")
+puts BufferApp.new(token, profile_id ).create("123")
