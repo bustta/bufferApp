@@ -83,20 +83,17 @@ end
     urlFull = @urlHead + index + "/"
 
     title = getTitle(urlFull)
-    # setIndex(index.to_i + 1)
+    setIndex(index.to_i + 1)
 
-    # while title == 404
-    #     index = getIndex()
-    #     urlFull = @urlHead + index + "/"
-    #     title = getTitle(urlFull)
-    #     setIndex(index.to_i + 1)
-    # end
+    while title == 404
+        index = getIndex()
+        urlFull = @urlHead + index + "/"
+        title = getTitle(urlFull)
+        setIndex(index.to_i + 1)
+    end
 
-# title = "測試"
-urlFull = @urlHead + "999" + "/"
-    puts title
-    # puts BufferApp.new(token, facebook_id).create(title, urlFull)
-    # BufferApp.new(token, twitter_id).create4Twitter(title, urlFull)
-    # BufferApp.new(token, google_id).create(title, urlFull)
+    BufferApp.new(token, facebook_id).create(title, urlFull)
+    BufferApp.new(token, twitter_id).create4Twitter(title, urlFull)
+    BufferApp.new(token, google_id).create(title, urlFull)
 
 # end
