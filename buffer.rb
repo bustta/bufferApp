@@ -79,10 +79,10 @@ end
 @urlHead = "http://www.soulmates.ws/mates/address_detail/"
 
 # 10.times do
-    # index = getIndex()
-    # urlFull = @urlHead + index + "/"
+    index = getIndex()
+    urlFull = @urlHead + index + "/"
 
-    # title = getTitle(urlFull)
+    title = getTitle(urlFull)
     # setIndex(index.to_i + 1)
 
     # while title == 404
@@ -92,7 +92,7 @@ end
     #     setIndex(index.to_i + 1)
     # end
 
-title = "測試"
+# title = "測試"
 urlFull = @urlHead + "999" + "/"
     puts title
     puts BufferApp.new(token, facebook_id).create(title, urlFull)
