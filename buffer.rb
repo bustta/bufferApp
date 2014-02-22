@@ -79,19 +79,21 @@ end
 @urlHead = "http://www.soulmates.ws/mates/address_detail/"
 
 # 10.times do
-    index = getIndex()
-    urlFull = @urlHead + index + "/"
+    # index = getIndex()
+    # urlFull = @urlHead + index + "/"
 
-    title = getTitle(urlFull)
-    setIndex(index.to_i + 1)
+    # title = getTitle(urlFull)
+    # setIndex(index.to_i + 1)
 
-    while title == 404
-        index = getIndex()
-        urlFull = @urlHead + index + "/"
-        title = getTitle(urlFull)
-        setIndex(index.to_i + 1)
-    end
+    # while title == 404
+    #     index = getIndex()
+    #     urlFull = @urlHead + index + "/"
+    #     title = getTitle(urlFull)
+    #     setIndex(index.to_i + 1)
+    # end
 
+title = "測試"
+urlFull = @urlHead + "999" + "/"
     puts title
     puts BufferApp.new(token, facebook_id).create(title, urlFull)
     # BufferApp.new(token, twitter_id).create4Twitter(title, urlFull)
