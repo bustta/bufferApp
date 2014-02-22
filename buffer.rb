@@ -92,7 +92,8 @@ end
         setIndex(index.to_i + 1)
     end
 
-    BufferApp.new(token, facebook_id).create(title, urlFull)
+    puts title
+    puts BufferApp.new(token, facebook_id).create(title, urlFull)
     # BufferApp.new(token, twitter_id).create4Twitter(title, urlFull)
     # BufferApp.new(token, google_id).create(title, urlFull)
 
