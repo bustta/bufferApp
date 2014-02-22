@@ -49,7 +49,7 @@ end
 def getTitle(url)
     title = ''
     begin
-    doc = Nokogiri::HTML(open(url))
+    doc = Nokogiri::HTML(open(url), nil, "UTF-8")
     title = doc.css('title').text
     rescue
         title = 404
@@ -95,7 +95,7 @@ end
 # title = "測試"
 urlFull = @urlHead + "999" + "/"
     puts title
-    puts BufferApp.new(token, facebook_id).create(title, urlFull)
+    # puts BufferApp.new(token, facebook_id).create(title, urlFull)
     # BufferApp.new(token, twitter_id).create4Twitter(title, urlFull)
     # BufferApp.new(token, google_id).create(title, urlFull)
 
