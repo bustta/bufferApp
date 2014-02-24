@@ -78,7 +78,7 @@ end
 
 @urlHead = "http://www.soulmates.ws/mates/address_detail/"
 
-# 10.times do
+10.times do
     index = getIndex()
     urlFull = @urlHead + index + "/"
 
@@ -92,8 +92,8 @@ end
         setIndex(index.to_i + 1)
     end
 
-   puts BufferApp.new(token, facebook_id).create(title, urlFull)
+    BufferApp.new(token, facebook_id).create(title, urlFull)
     BufferApp.new(token, twitter_id).create4Twitter(title, urlFull)
     BufferApp.new(token, google_id).create(title, urlFull)
 
-# end
+end
