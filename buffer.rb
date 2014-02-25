@@ -42,6 +42,19 @@ class BufferApp
                 })
     end
 
+    def create4Img(title, image, url)
+        desc = title + " " + url
+        BufferApp.post('/updates/create.json',
+            :body => {
+                "text" => desc,
+                "profile_ids[]" => @id,
+                "access_token" => @token,
+                "media[photo]" => image,
+                # "media[description]" => desc,
+                # "media[title]" => desc
+                })
+    end
+
     def getProfile
       BufferApp.get('/profiles.json', :query => {"access_token" => @token})
     end
@@ -75,14 +88,12 @@ def setIndex(index)
         file.print index
     end
 end
-def getIndexFromGDive
-    session = GoogleDrive.login("honju.tsai@gmail.com", "devgmail")
 
-    ws = session.spreadsheet_by_key("0AhRADkWEsF8xdEFtVUplWENCdGVSRjQ5NWxreVF0bHc").worksheets[0]
-    index =  ws[1,1]
-    ws[1,1] = index.to_i + 1
-    ws.save()
+def getCoverImage(url)
+    doc = Nokogiri::HTML(open(url), nil, "UTF-8")
+    imageUrl = doc.xpath("//meta[@property='og:image']")[0]['content']
 end
+
 
 
 
@@ -92,7 +103,8 @@ session = GoogleDrive.login("honju.tsai@gmail.com", "devgmail")
 ws = session.spreadsheet_by_key("0AhRADkWEsF8xdEFtVUplWENCdGVSRjQ5NWxreVF0bHc").worksheets[0]
 index =  ws[1,1].to_i
 
-10.times do
+count = 0
+while count < 10
 
     # index = getIndex()
     urlFull = @urlHead + index.to_s + "/"
@@ -103,16 +115,23 @@ index =  ws[1,1].to_i
     while title == 404
         # index = getIndex()
         index = index.to_i + 1
-        urlFull = @urlHead + index + "/"
+        urlFull = @urlHead + index.to_s + "/"
         title = getTitle(urlFull)
         # setIndex(index.to_i + 1)
     end
 
-    BufferApp.new(token, facebook_id).create(title, urlFull)
+    if count == 4 || count == 9
+        image = getCoverImage(urlFull)
+        BufferApp.new(token, facebook_id).create4Img(title, image, urlFull)
+    else
+        BufferApp.new(token, facebook_id).create(title, urlFull)
+    end
+
     BufferApp.new(token, twitter_id).create4Twitter(title, urlFull)
     BufferApp.new(token, google_id).create(title, urlFull)
 
     index = index.to_i + 1
+    count += 1
 end
 
 ws[1,1] = index
