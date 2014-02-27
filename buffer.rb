@@ -106,29 +106,29 @@ index =  ws[1,1].to_i
 count = 0
 while count < 10
 
-    # index = getIndex()
     urlFull = @urlHead + index.to_s + "/"
 
     title = getTitle(urlFull)
-    # setIndex(index.to_i + 1)
 
     while title == 404
-        # index = getIndex()
         index = index.to_i + 1
         urlFull = @urlHead + index.to_s + "/"
         title = getTitle(urlFull)
-        # setIndex(index.to_i + 1)
     end
 
-    if count == 4 || count == 9
+    if count >= 5
         image = getCoverImage(urlFull)
         BufferApp.new(token, facebook_id).create4Img(title, image, urlFull)
+        BufferApp.new(token, google_id).create4Img(title, image, urlFull)
+        BufferApp.new(token, twitter_id).create4Img(title, image, urlFull)
+
     else
         BufferApp.new(token, facebook_id).create(title, urlFull)
+        BufferApp.new(token, google_id).create(title, urlFull)
+        BufferApp.new(token, twitter_id).create4Twitter(title, urlFull)
+
     end
 
-    BufferApp.new(token, twitter_id).create4Twitter(title, urlFull)
-    BufferApp.new(token, google_id).create(title, urlFull)
 
     index = index.to_i + 1
     count += 1
