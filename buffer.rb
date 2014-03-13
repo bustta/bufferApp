@@ -116,18 +116,18 @@ while count < 10
         title = getTitle(urlFull)
     end
 
-    if count >= 5
+    # if count >= 5
         image = getCoverImage(urlFull)
         BufferApp.new(token, facebook_id).create4Img(title, image, urlFull)
         BufferApp.new(token, google_id).create4Img(title, image, urlFull)
         BufferApp.new(token, twitter_id).create4Img(title, image, urlFull)
 
-    else
-        BufferApp.new(token, facebook_id).create(title, urlFull)
-        BufferApp.new(token, google_id).create(title, urlFull)
-        BufferApp.new(token, twitter_id).create4Twitter(title, urlFull)
+    # else
+    #     BufferApp.new(token, facebook_id).create(title, urlFull)
+    #     BufferApp.new(token, google_id).create(title, urlFull)
+    #     BufferApp.new(token, twitter_id).create4Twitter(title, urlFull)
 
-    end
+    # end
 
 
     index = index.to_i + 1
