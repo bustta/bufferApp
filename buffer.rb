@@ -104,7 +104,9 @@ ws = session.spreadsheet_by_key("0AhRADkWEsF8xdEFtVUplWENCdGVSRjQ5NWxreVF0bHc").
 index =  ws[1,1].to_i
 
 count = 0
-while count < 10
+
+mode = ARGV[0] * 1;
+while count < 2
 
     urlFull = @urlHead + index.to_s + "/"
 
@@ -116,18 +118,17 @@ while count < 10
         title = getTitle(urlFull)
     end
 
-    # if count >= 5
         image = getCoverImage(urlFull)
-        BufferApp.new(token, facebook_id).create4Img(title, image, urlFull)
-        BufferApp.new(token, google_id).create4Img(title, image, urlFull)
-        BufferApp.new(token, twitter_id).create4Img(title, image, urlFull)
 
-    # else
-    #     BufferApp.new(token, facebook_id).create(title, urlFull)
-    #     BufferApp.new(token, google_id).create(title, urlFull)
-    #     BufferApp.new(token, twitter_id).create4Twitter(title, urlFull)
-
-    # end
+        if mode == 1
+            BufferApp.new(token, facebook_id).create4Img(title, image, urlFull)
+            BufferApp.new(token, google_id).create4Img(title, image, urlFull)
+            BufferApp.new(token, twitter_id).create4Img(title, image, urlFull)
+        else
+            BufferApp.new(token, facebook_id).create(title, urlFull)
+            BufferApp.new(token, google_id).create(title, urlFull)
+            BufferApp.new(token, twitter_id).create4Twitter(title, urlFull)
+        end
 
 
     index = index.to_i + 1
