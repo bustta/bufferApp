@@ -4,11 +4,27 @@ require 'nokogiri'
 require 'open-uri'
 require "google_drive"
 
-facebook_id = "52b3069411243a4d5a0000ba"
-twitter_id = "52af2f34c43ab5213c000002"
-google_id = "52af2f59c43ab5193c000001"
+facebook_id = ''
+twitter_id = ''
+google_id = ''
+token = ''
+indexID = ''
+indexPW = ''
+sheetKey = ''
 
-token = "1/ca8f892f4f20142ffd0ac7400ab79366"
+File.open('indexToken.txt', 'r') do |file|
+  file.each_line do |line|
+    line_data = line.split(',')
+    indexID = line_data[0]
+    indexPW = line_data[1]
+    sheetKey = line_data[2]
+    facebook_id = line_data[3]
+    twitter_id = line_data[4]
+    google_id = line_data[5]
+    token = line_data[6]
+  end
+end
+
 
 
 class BufferApp
@@ -88,7 +104,6 @@ def setIndex(index)
         file.print index
     end
 end
-
 def getCoverImage(url)
     doc = Nokogiri::HTML(open(url), nil, "UTF-8")
     imageUrl = doc.xpath("//meta[@property='og:image']")[0]['content']
@@ -99,14 +114,20 @@ end
 
 @urlHead = "http://www.soulmates.ws/mates/address_detail/"
 
-session = GoogleDrive.login("honju.tsai@gmail.com", "devgmail")
-ws = session.spreadsheet_by_key("0AhRADkWEsF8xdEFtVUplWENCdGVSRjQ5NWxreVF0bHc").worksheets[0]
-index =  ws[1,1].to_i
+
+
+session = GoogleDrive.login(indexID, indexPW)
+begin
+    ws = session.spreadsheet_by_key(sheetKey).worksheets[0]
+    index =  ws[1,1].to_i
+rescue
+    index = rand(1000)
+end
+
 
 count = 0
-
-mode = ARGV[0] * 1;
-while count < 2
+mode = ARGV[0].to_i;
+while count < 10
 
     urlFull = @urlHead + index.to_s + "/"
 
